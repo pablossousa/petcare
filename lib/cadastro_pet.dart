@@ -87,8 +87,7 @@ class _CadastroPetState extends State<CadastroPet> {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => const Menu()),
+                          MaterialPageRoute(builder: (context) => const Menu()),
                         );
                       },
                       child: const Text('Cadastrar'),
