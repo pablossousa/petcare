@@ -10,6 +10,10 @@ class Anamnese extends StatefulWidget {
 class _AnamneseState extends State<Anamnese> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Anamnese'),
+      ),
+    );
   }
 }
