@@ -185,6 +185,7 @@ class _AnamneseState extends State<Anamnese> {
               ],
             )
           ],
-        ));
+        )
+        );
   }
 }
