@@ -57,14 +57,25 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
 
 <h2>Tutorial</h2>
 
+<p align="justify">
 Para conseguir executar o aplicativo, primeiramente precisará baixar o SDK do Flutter disponível em <a href="https://docs.flutter.dev/get-started/install">Install | Flutter</a>, descompactá-lo e colocá-lo em uma pasta no qual o caminho não deve conter caracteres especiais.
+</p>
 
+<p align="justify">
 Em seguida será necessário uma IDE para a execução, neste tutorial será utilizado o Visual Studio Code como exemplo que está disponível para download em <a href="https://code.visualstudio.com/">VS Code | Download</a>. Com a IDE instalada, é necessário a instalação de uma extensão chamada "Flutter" dentro do VS Code na parte de "Extensions". Instalando essa extensão automaticamente a extensão do Dart será instalada. 
-
-A próxima etapa é conseguir executar o aplicativo com um emulador no VS Code. Para isso, abre-se o projeto na pasta em que o download foi realizado e o mesmo perguntará automaticamente qual o SDK irá utilizar, então seleciona-se o que baixamos do site oficial do Flutter. 
-
-
+</p>
 
 <p align="center">
 <img src="img/extension.png">
 </p>
+
+<p align="justify">
+A próxima etapa é conseguir executar o aplicativo com um emulador no VS Code. Para isso, abre-se o projeto na pasta em que o download foi realizado e o mesmo perguntará automaticamente qual o SDK irá utilizar, então seleciona-se o que foi baixado do site oficial do Flutter. Caso não apareça automaticamente basta teclar "F1" ou "Ctrl > Shift > P" no teclado para abrir a paleta de comando e buscar por "Change SDK".
+</p>
+
+<p align="center">
+<img src="img/change_sdk.png">
+</p>
+
+
+
