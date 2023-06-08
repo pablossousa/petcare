@@ -38,14 +38,22 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
 <a href="https://dart.dev/">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dart/dart-original.svg">
 </a>
+  
+<a href="https://code.visualstudio.com/">
+<img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg">
+</a>
 
 <a href="https://developer.android.com/studio">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/androidstudio/androidstudio-original.svg">
 </a>
-
-<a href="https://code.visualstudio.com/">
-<img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg">
-</a>
+  
 </div>
 
 <h2>Tutorial</h2>
+
+Para conseguir executar o aplicativo, primeiramente precisará baixar o SDK do Flutter disponível em <a href="https://docs.flutter.dev/get-started/install">Install | Flutter</a>, descompactá-lo e colocá-lo em uma pasta no qual o caminho não deve conter caracteres especiais.
+
+Em seguida será necessário uma IDE para a execução, neste tutorial será utilizado o Visual Studio Code como exemplo que está disponível para download em <a href=""></a> 
+
+e escolher o sistema operacional que está usando. 
+de uma IDE. 
