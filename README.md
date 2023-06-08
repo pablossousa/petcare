@@ -14,7 +14,17 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
 </p>
 
 
+
 <div style="display: inline_block">
+  
+<a href="https://www.drawio.com/">
+<img align="center" alt="Rafa-HTML" height="30" width="40" src="img/draw.png">
+</a>
+  
+<a href="https://www.lucidchart.com/pages/pt">
+<img align="center" alt="Rafa-HTML" height="30" width="40" src="img/lucid.png">
+</a>
+  
 <a href="https://flutter.dev/">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-original.svg">
 </a>
@@ -29,14 +39,6 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
 
 <a href="https://code.visualstudio.com/">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg">
-</a>
-  
-<a href="https://www.drawio.com/">
-<img align="center" alt="Rafa-HTML" height="30" width="40" src="img/draw.png">
-</a>
-  
-<a href="https://www.lucidchart.com/pages/pt">
-<img align="center" alt="Rafa-HTML" height="30" width="40" src="img/lucid.png">
 </a>
 </div>
 
