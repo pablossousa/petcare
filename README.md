@@ -116,3 +116,13 @@ Ao fim da instalação deve ser possível acessar esse emulador no VS Code sem m
 <p align="center">
 <img src="img/em2.png">
 </p>
+
+<p align="justify">
+Ao clicar no emulador do Pixel 6 o sistema abrirá o celular. A primeira vez levará um tempo para carregar. Por fim, basta executar o arquivo "main.dart" e o aplicativo abrirá no celular.
+</p>
+
+<p align="center">
+<img src="img/final.png">
+</p>
+
+<h2>Integrantes</h2>
