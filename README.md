@@ -55,7 +55,7 @@ Para conseguir executar o aplicativo, primeiramente precisará baixar o SDK do F
 
 Em seguida será necessário uma IDE para a execução, neste tutorial será utilizado o Visual Studio Code como exemplo que está disponível para download em <a href="https://code.visualstudio.com/">VS Code | Download</a>. Com a IDE instalada, é necessário a instalação de uma extensão chamada "Flutter" dentro do VS Code na parte de "Extensions".
 
-<img src="img/flutter_extension.png">
+<img src="img/extension.png">
 
 e escolher o sistema operacional que está usando. 
 de uma IDE. 
