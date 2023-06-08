@@ -88,3 +88,31 @@ Para isso, baixa-se e instala-se o Android Studio disponível em <a href="https:
 <p align="center">
 <img src="img/device_manager.png">
 </p>
+
+<p align="justify">
+A opção "Create device" levará a uma tela para escolher o hardware, no caso escolha um celular na aba de "Phone". Como exemplo foi escolhido o Pixel 6. Em seguida seleciona-se a imagem do sistema e neste caso será o "R". Clica-se em "Next" e na próxima tela "Finish". 
+</p>
+
+<p align="center">
+<img src="img/create.png">
+</p>
+
+<p align="center">
+<img src="img/hardware.png">
+</p>
+
+<p align="center">
+<img src="img/imagem.png">
+</p>
+
+<p align="justify">
+Ao fim da instalação deve ser possível acessar esse emulador no VS Code sem mais empecilhos. Reinicie o VS Code e vá na parte inferior direita da IDE e selecione o emulador instalado.
+</p>
+
+<p align="center">
+<img src="img/em1.png">
+</p>
+
+<p align="center">
+<img src="img/em2.png">
+</p>
