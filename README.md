@@ -16,9 +16,18 @@ Já para desenvolver a aplicação foram utilizadas duas IDE's, o Visual Studio 
 <a href="https://flutter.dev/">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-original.svg">
 </a>
+  
+<a href="https://dart.dev/">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dart/dart-original.svg">
+</a>
+
+<a href="https://developer.android.com/studio">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/androidstudio/androidstudio-original.svg">
+</a>
+
+<a href="https://code.visualstudio.com/">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg">
+</a>
 </div>
 
 <h2>Tutorial</h2>
