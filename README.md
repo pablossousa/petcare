@@ -27,7 +27,7 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="img/lucid.png">
 </a>
   
-<a href="https://flutter.dev/">
+<a href="https://www.figma.com/">
 <img align="center" alt="Rafa-HTML" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/figma/figma-original.svg">
 </a>
   
