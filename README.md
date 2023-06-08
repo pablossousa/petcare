@@ -73,13 +73,18 @@ Em seguida será necessário uma IDE para a execução, neste tutorial será uti
 A próxima etapa é conseguir executar o aplicativo com um emulador no VS Code. Para isso, abre-se o projeto na pasta em que o download foi realizado e o mesmo perguntará automaticamente qual o SDK irá utilizar, então seleciona-se o que foi baixado do site oficial do Flutter. Caso não apareça automaticamente, basta teclar "F1" ou "Ctrl > Shift > P" no teclado para abrir a paleta de comando e buscar por "Change SDK".
 </p>
 
-<p align="justify">
-Por fim, para a última parte do tutorial precisa-se configurar um emulador do Android. Uma das formas mais fáceis de conseguir um emulador é instalando o Android Studio e baixar os emuladores nativos presentes nele. 
-</p>
-
 <p align="center">
 <img src="img/change_sdk.png">
 </p>
 
+<p align="justify">
+Por fim, para a última parte do tutorial precisa-se configurar um emulador do Android. Uma das formas mais fáceis de conseguir um emulador é instalando o Android Studio e baixar os emuladores nativos presentes nele. 
+</p>
 
+<p align="justify">
+Para isso, baixa-se e instala-se o Android Studio disponível em <a href="https://developer.android.com/studio">Android Studio | Download</a> e cria-se um projeto qualquer para ter acesso a esse botão no canto superior direito (Device Manager):
+</p>
 
+<p align="center">
+<img src="img/device_manager.png">
+</p>
