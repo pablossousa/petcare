@@ -126,3 +126,9 @@ Ao clicar no emulador do Pixel 6 o sistema abrirá o celular. A primeira vez lev
 </p>
 
 <h2>Integrantes</h2>
+
+**[Gabriel Teixeira Júlio](https://github.com/Kingdrasill)**
+
+**[Lívia Gonçalves](https://github.com/Livia-Goncalves-01)**
+
+**[Pablo Sousa da Silva](https://github.com/pablossousa)**
