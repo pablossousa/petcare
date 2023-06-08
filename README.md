@@ -53,7 +53,7 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
 
 Para conseguir executar o aplicativo, primeiramente precisará baixar o SDK do Flutter disponível em <a href="https://docs.flutter.dev/get-started/install">Install | Flutter</a>, descompactá-lo e colocá-lo em uma pasta no qual o caminho não deve conter caracteres especiais.
 
-Em seguida será necessário uma IDE para a execução, neste tutorial será utilizado o Visual Studio Code como exemplo que está disponível para download em <a href=""></a> 
+Em seguida será necessário uma IDE para a execução, neste tutorial será utilizado o Visual Studio Code como exemplo que está disponível para download em <a href="https://code.visualstudio.com/">VS Code | Download</a>. Com a IDE instalada, é necessário a instalação de uma extensão chamada "Flutter" dentro do VS Code na parte de "Extensions".
 
 e escolher o sistema operacional que está usando. 
 de uma IDE. 
