@@ -95,6 +95,14 @@ A próxima etapa é conseguir executar o aplicativo com um emulador no VS Code. 
 </p>
 
 <p align="justify">
+Também é provável que apareça uma notificação do VS Code pedindo para executar o comando "pub get". Clique nessa opção.
+</p>
+
+<p align="center">
+<img src="img/pub_get.png">
+</p>
+
+<p align="justify">
 Por fim, para a última parte do tutorial precisa-se configurar um emulador do Android. Uma das formas mais fáceis de conseguir um emulador é instalando o Android Studio e baixar os emuladores nativos presentes nele. 
 </p>
 
