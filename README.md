@@ -10,7 +10,7 @@ Ao observar a falta de uma ferramenta que facilite os cuidados e acompanhamentos
 O desenvolvimento desse projeto tem por foco a facilidade da versão eletrônica, envolvendo praticidade e segurança de ter todos os documentos e informações necessárias do pet, beneficiando tanto os usuários do aplicativo quanto profissionais da área, como veterinários.
 </p>
 
-<h2>Dificuldades</h2>
+<h2>💪🏻 Dificuldades</h2>
 
 <p align="justify">
 Os desafios encontrados no projeto envolveram desde a etapa do desenvolvimento do aplicativo ao estruturar ideias e colocá-las em práticas sem muito conhecimento prévio. Além disso, o planejamento do layout, o que seria relevante ou não ao usuário, também foi uma dificuldade encontrada durante o percurso. 
@@ -21,7 +21,7 @@ Aprender uma nova linguagem de programação para o desenvolvimento do aplicativ
 </p>
 
 
-<h2>Tecnologias Utilizadas</h2>
+<h2>💻 Tecnologias Utilizadas</h2>
 <p align="justify">
 A fim de elaborar a documentação do projeto, a digramação foi feita utilizando dois softwares, o Draw.io e o Lucidchart.
 </p>
@@ -72,7 +72,7 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
   
 </div>
 
-<h2>Tutorial</h2>
+<h2>📢 Tutorial</h2>
 
 <p align="justify">
 Para conseguir executar o aplicativo, primeiramente precisará baixar o SDK do Flutter disponível em <a href="https://docs.flutter.dev/get-started/install">Install | Flutter</a>, descompactá-lo e colocá-lo em uma pasta no qual o caminho não deve conter caracteres especiais.
