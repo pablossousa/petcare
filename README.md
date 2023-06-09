@@ -2,7 +2,24 @@
 
 <h2>Motivação</h2>
 
+<p align="justify">
+Ao observar a falta de uma ferramenta que facilite os cuidados e acompanhamentos do animal de estimação, notou-se a viabilidade de criar um aplicativo destinado ao gerenciamento do animal de estimação que permitirá administrar um pet desde os cuidados como cartão de vacina, dados relevantes sobre a vacinação e anamnese.
+</p>
+
+<p align="justify">
+O desenvolvimento desse projeto tem por foco a facilidade da versão eletrônica, envolvendo praticidade e segurança de ter todos os documentos e informações necessárias do pet, beneficiando tanto os usuários do aplicativo quanto profissionais da área, como veterinários.
+</p>
+
 <h2>Dificuldades</h2>
+
+<p align="justify">
+Os desafios encontrados no projeto envolveram desde a etapa do desenvolvimento do aplicativo ao estruturar ideias e colocá-las em práticas sem muito conhecimento prévio. Além disso, o planejamento do layout, o que seria relevante ou não ao usuário, também foi uma dificuldade encontrada durante o percurso. 
+</p>
+
+<p align="justify">
+Aprender uma nova linguagem de programação para o desenvolvimento do aplicativo, trouxe algumas dificuldades ao desenvolver o MVP além de diversos problemas que poderiam ou ainda podem surgir pela falta de experiência com a linguagem.  
+</p>
+
 
 <h2>Tecnologias Utilizadas</h2>
 <p align="justify">
