@@ -1,11 +1,11 @@
 {
-    "name": "petcare",
-    "short_name": "petcare",
+    "name": "mds",
+    "short_name": "mds",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Pet care aplicativo feito em flutter",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
