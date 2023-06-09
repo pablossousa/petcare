@@ -25,7 +25,7 @@ class MenuState extends State<Menu> {
           GestureDetector(
             child: ListTile(
               leading: const Icon(Icons.pets),
-              title: const Text('Nome Pet'),
+              title: const Text('Nome pet'),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const PerfilPet()),
