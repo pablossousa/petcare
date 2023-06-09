@@ -10,7 +10,7 @@ Ao observar a falta de uma ferramenta que facilite os cuidados e acompanhamentos
 O desenvolvimento desse projeto tem por foco a facilidade da versão eletrônica, envolvendo praticidade e segurança de ter todos os documentos e informações necessárias do pet, beneficiando tanto os usuários do aplicativo quanto profissionais da área, como veterinários.
 </p>
 
-<h2>💪🏻 Dificuldades</h2>
+<h2>💪 Dificuldades</h2>
 
 <p align="justify">
 Os desafios encontrados no projeto envolveram desde a etapa do desenvolvimento do aplicativo ao estruturar ideias e colocá-las em práticas sem muito conhecimento prévio. Além disso, o planejamento do layout, o que seria relevante ou não ao usuário, também foi uma dificuldade encontrada durante o percurso. 
