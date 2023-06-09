@@ -3,7 +3,7 @@
 <h2>Motivação</h2>
 
 <p align="justify">
-Ao observar a falta de uma ferramenta que facilite os cuidados e acompanhamentos do animal de estimação, notou-se a viabilidade de criar um aplicativo destinado ao gerenciamento do animal de estimação que permitirá administrar um pet desde os cuidados como cartão de vacina, dados relevantes sobre a vacinação e anamnese.
+Ao observar a falta de uma ferramenta que facilite os cuidados e acompanhamentos do animal de estimação, notou-se a viabilidade de criar um aplicativo destinado ao gerenciamento do animal que permitirá administrar um pet desde os cuidados como cartão de vacina, dados relevantes sobre a vacinação e anamnese.
 </p>
 
 <p align="justify">
