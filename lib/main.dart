@@ -13,14 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final database = AppDatabase();
-    database.usuariosDao.cadastrarUsuario(UsuariosCompanion(
+    database.usuariosDao.cadastrarUsuario(const UsuariosCompanion(
       nome: d.Value('Gabriel Teixeira Júlio'),
       email: d.Value('teste@teste'),
       celular: d.Value('123456789'),
       endereco: d.Value('endereço 1'),
       senha: d.Value('senh@123'),
     ));
-    database.vacinasDao.insertVacina(VacinasCompanion(
+    database.vacinasDao.insertVacina(const VacinasCompanion(
       nome: d.Value('Vacina Teste'),
       descricao: d.Value('Vacina para MVP'),
       periodoDoses: d.Value('Vacina de teste')

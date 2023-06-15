@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mds/views/pages/alterar_page.dart';
+import 'package:mds/views/pages/alterar_pet_page.dart';
 import 'package:mds/views/pages/perfil_pet.dart';
 import 'package:provider/provider.dart';
 import 'cadastro_pet_page.dart';
@@ -24,6 +26,21 @@ class _HomePageState extends State<HomePage> {
           leading: const Icon(Icons.account_circle),
           title: Text(widget.dadosUsuario!.nome),
           subtitle: Text(widget.dadosUsuario!.email),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(
+                      builder: (context) => AlterarPage(dadosUsuario: widget.dadosUsuario,)
+                    )
+                  );
+                },
+                icon: const Icon(Icons.change_circle),
+              ),
+            ],
+          ),
         ),
       ),
       body: Column(
@@ -89,6 +106,16 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 icon: const Icon(Icons.account_circle)
+            ),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(
+                          builder: (context) => AlterarPetPage(dadosPet: itemPet,)
+                      )
+                  );
+                },
+                icon: const Icon(Icons.change_circle)
             ),
             IconButton(
                 onPressed: () => petDao.deletePet(itemPet),

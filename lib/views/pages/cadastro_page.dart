@@ -120,7 +120,7 @@ class _CadastroPageState extends State<CadastroPage> {
                         && _emailErrorMessage == null && _senhaErrorMessage == null
                         && _confirmarErrorMessage == null) {
                         _senhaErrorMessage = senha.length < 4 ? 'Senha deve ter pleo menos 4 caracteres' : null;
-                        _confirmarErrorMessage = senha != confirmar ? 'Confirmar senha deve igual a senha' : null;
+                        _confirmarErrorMessage = senha != confirmar ? 'Confirmar senha deve ser igual a senha' : null;
 
                         if(_senhaErrorMessage == null && _confirmarErrorMessage == null) {
                           final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
