@@ -1,0 +1,32 @@
+[
+    {
+      "nome": "Vacina Polivalente (V10)",
+      "descricao": "A vacina polivalente V10 protege o seu cão e a sua família de doenças contagiosas e zoonoses que podem levar a óbito. A Polivalente V10 protege contra: Cinomose, Parvovirose, Coronavirose, Hepatite Infecciosa Canina, Adenovirose, Parainfluenza Canina, Leptospirose Canina.",
+      "periodoDoses": "Ela é composta de 3 ou 4 doses iniciais. A primeira, deve ser aplicada entre os primeiros 42 a 45 dias de vida do filhote. As doses seguintes devem ser realizadas com intervalos de 21 a 28 dias."
+     },
+    {
+        "nome": "Vacina Antirrábica",
+        "descricao": "A raiva é uma doença fatal em praticamente 100% dos casos, tanto em cães como em seres humanos. Ela provoca alterações neurológicas graves e pode ser transmitida dos pets para seus tutores através de arranhões e mordidas.",
+        "periodoDoses": "A primeira dose da vacina antirrábica pode ser aplicada logo na fase de filhotes, a partir dos 3 meses de idade. Já o reforço dessas vacinas para cães devem ser feitos anualmente."
+     },
+     {
+        "nome": "Vacina contra a gripe (Tosse dos Canis)",
+        "descricao": "A tosse dos canis costuma cursar com tosse, coriza, febre e falta de apetite. Por vezes, parece que o cão está engasgado. O quadro pode, inclusive, evoluir para pneumonia, causando uma série de transtornos para toda a família.",
+        "periodoDoses": "A vacina contra a gripe canina pode ser aplicada junto com a segunda dose da vacina polivalente (V10), por volta dos 80 dias de vida do pet. O veterinário deverá definir a necessidade da segunda dose de acordo com o tipo da vacina: injetável ou intranasal. O reforço dessas vacinas para cães devem ser feitos todos os anos."
+       },
+       {
+        "nome": "Vacina contra Giárdia",
+        "descricao": "A giardíase pode provocar diarréia, vômito, apatia e perda de peso. É uma importante zoonose, podendo ser transmitida para as pessoas a partir de animais infectados.",
+        "periodoDoses": "A vacina pode ser aplicada a partir dos 2 meses de idade do pet. A segunda dose 3 – 4 semanas após a primeira é essencial para uma proteção adequada. O reforço é anual."
+       },
+       {
+        "nome": "Vacina contra Leishmaniose",
+        "descricao": "Os cães domésticos são considerados os principais reservatórios da Leishmaniose em áreas urbanas. A partir deles, algumas espécies de mosquitos podem espalhar a doença para toda a família. A leishmaniose é dividida em dois tipos: visceral ou tegumentar. Em humanos, a doença pode provocar desde feridas na pele e fraqueza, até aumento do baço, do fígado, problemas respiratórios, sangramentos e infecções por conta da queda da imunidade.",
+        "periodoDoses": "As vacinas para cães contra leishmaniose devem ser feitas a partir de 4 meses de idade. O protocolo completo deve ser feito com 3 doses, respeitando o intervalo de 21 dias entre cada aplicação. A revacinação é anual, contada a partir da 1ª dose."
+       },
+       {
+        "nome": "Vacina de gato polivalente (V3, V4 ou V5)",
+        "descricao": "Trata-se de um imunizante que protege o felino das mais variadas doenças, e que possui diferentes versões, como a V3 (tríplice), V4 (quádrupla) e a vacina V5 para gatos. Essa última também é chamada de vacina quíntupla felina ou múltipla.",
+        "periodoDoses": "A primeira dose é realizada a partir dos 60 dias de vida. A segunda dose é realizada entre 21 a 30 dias após a primeira dose. A terceira dose é realizada entre 21 a 30 dias após a segunda dose."
+       }
+ ]
