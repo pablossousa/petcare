@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
@@ -31,30 +32,6 @@ class _LoginPageState extends State<LoginPage> {
     _emailController.dispose();
     _senhaController.dispose();
     super.dispose();
-  }
-
-  void _showErrorMessage(BuildContext context) {
-    Widget okButton = TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Ok'),
-    );
-
-    AlertDialog alerta = AlertDialog(
-      title: const Text('Falha ao fazer login'),
-      content: const Text('Usuário com email e senha passados não encontrado'),
-      actions: [
-        okButton,
-      ],
-    );
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alerta;
-        }
-    );
   }
 
   @override
@@ -92,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                         final usuario = (await usuarioDao.findUsuario(email, senha)).firstOrNull;
 
                         if(usuario ==  null && context.mounted) {
-                          _showErrorMessage(context);
+                          showErrorMessage(context, 'Falha ao fazer login', 'Usuário com email e senha passados não encontrado');
                         } else {
                           Navigator.pushReplacement(
                             context,
@@ -109,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   child: const Text('Cadastrar'),
                   onPressed: () => {Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder:(context) => CadastroPage(),
+                    builder:(context) => const CadastroPage(),
                   ))},
                 )
               ],
@@ -126,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: 'E-mail',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _erroEmailText,
       ),
     );
@@ -138,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Senha',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _erroSenhaText,
       ),
       onChanged: (value) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:drift/drift.dart' as d;
@@ -47,31 +48,6 @@ class _CadastroPageState extends State<CadastroPage> {
     _senhaController.dispose();
     _confirmarController.dispose();
     super.dispose();
-  }
-
-
-  void _showErrorMessage(BuildContext context) {
-    Widget okButton = TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Ok'),
-    );
-
-    AlertDialog alerta = AlertDialog(
-      title: const Text('Falha ao fazer o cadastro'),
-      content: const Text('Ocorreu um erro ao fazer o cadastro de usuário, tente novamente'),
-      actions: [
-        okButton,
-      ],
-    );
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alerta;
-        }
-    );
   }
 
   @override
@@ -124,7 +100,7 @@ class _CadastroPageState extends State<CadastroPage> {
 
                         if(_senhaErrorMessage == null && _confirmarErrorMessage == null) {
                           final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
-                          final usuario = await usuarioDao.cadastrarUsuario(UsuariosCompanion(
+                          final response = await usuarioDao.cadastrarUsuario(UsuariosCompanion(
                             nome: d.Value(_nomeController.value.text),
                             celular: d.Value(_celularController.value.text.isEmpty ? null : _celularController.value.text),
                             endereco: d.Value(_enderecoController.value.text),
@@ -132,13 +108,13 @@ class _CadastroPageState extends State<CadastroPage> {
                             senha: d.Value(_senhaController.value.text),
                           ));
 
-                          if(usuario == null && context.mounted) {
-                            _showErrorMessage(context);
+                          if(response.result == null && context.mounted) {
+                            showErrorMessage(context, 'Falha ao fazer cadastro de usuário', response.message!);
                           } else {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePage(dadosUsuario: usuario,)
+                                builder: (context) => HomePage(dadosUsuario: response.result,)
                               )
                             );
                           }
@@ -150,7 +126,7 @@ class _CadastroPageState extends State<CadastroPage> {
                   TextButton(
                     child: const Text('Login'),
                     onPressed: () => {Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder:(context) => LoginPage(),
+                      builder:(context) => const LoginPage(),
                     ))},
                   )
                 ],
@@ -168,7 +144,7 @@ class _CadastroPageState extends State<CadastroPage> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: 'Nome',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _nomeErrorMessage,
       ),
     );
@@ -191,7 +167,7 @@ class _CadastroPageState extends State<CadastroPage> {
       keyboardType: TextInputType.streetAddress,
       decoration: InputDecoration(
         labelText: 'Endereço',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _enderecoErrorMessage,
       ),
     );
@@ -203,7 +179,7 @@ class _CadastroPageState extends State<CadastroPage> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: 'E-mail',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _emailErrorMessage,
       ),
     );
@@ -216,7 +192,7 @@ class _CadastroPageState extends State<CadastroPage> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: 'Senha',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _senhaErrorMessage,
       ),
       onChanged: (value) {
@@ -233,7 +209,7 @@ class _CadastroPageState extends State<CadastroPage> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: 'Confirmar Senha',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _confirmarErrorMessage,
       ),
       onChanged: (value) {

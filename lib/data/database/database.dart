@@ -100,6 +100,15 @@ LazyDatabase _openConnection() {
   });
 }
 
+class Response<T> {
+  final T? result;
+  final String? message;
+  Response({
+    this.result,
+    this.message
+  });
+}
+
 @DriftAccessor(tables: [Usuarios])
 class UsuariosDao extends DatabaseAccessor<AppDatabase> with _$UsuariosDaoMixin {
   UsuariosDao(AppDatabase db) : super(db);
@@ -118,14 +127,26 @@ class UsuariosDao extends DatabaseAccessor<AppDatabase> with _$UsuariosDaoMixin 
         )
     ).get();
   }
-  Future<Usuario?> cadastrarUsuario(Insertable<Usuario> usuario) async {
-    final usuarioId = await into(usuarios).insert(usuario);
-    
-    return (select(usuarios)
+  Future<Response<Usuario>> cadastrarUsuario(Insertable<Usuario> usuario) async {
+    Response<Usuario> resultado;
+
+    try {
+      final usuarioId = await into(usuarios).insert(usuario);
+      final user = await (select(usuarios)
         ..where(
                 (u) => u.id.equals(usuarioId)
         )
-    ).getSingleOrNull();
+      ).getSingleOrNull();
+      resultado = Response<Usuario>(result: user, message: null);
+    } catch (exception) {
+      if(exception is SqliteException) {
+        resultado = Response<Usuario>(result: null, message: 'O email passado já foi cadastro para outro usuário, tente outro email');
+      } else {
+        resultado = Response<Usuario>(result: null, message: 'Ocorreu um erro ao cadastrar o usuário, tente novamente');
+      }
+    }
+    
+    return resultado;
   }
   Future updateUsuario(Insertable<Usuario> usuario) => update(usuarios).replace(usuario);
   Future deleteUsuario(Insertable<Usuario> usuario) => delete(usuarios).delete(usuario);
