@@ -6,7 +6,7 @@ import 'package:mds/routes/app_routes.dart';
 import 'package:drift/drift.dart' as d;
 
 void main() => runApp(const MyApp());
-
+//teste
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
