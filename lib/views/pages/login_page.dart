@@ -1,4 +1,6 @@
+import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
+import 'package:mds/views/components/buildTextField.dart';
 import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/home_page.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildEmailTextField(context),
+            buildTextField(context, _emailController, TextInputType.emailAddress, 'Email', _erroEmailText),
             const SizedBox(height: 15),
             _buildSenhaTextField(context),
             const SizedBox(height: 15),
@@ -65,16 +67,18 @@ class _LoginPageState extends State<LoginPage> {
                       _erroSenhaText = senha.length < 4 ? 'Senha deve ter pelo menos 4 caracteres' : null;
 
                       if(_erroSenhaText ==  null) {
-                        final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
-                        final usuario = (await usuarioDao.findUsuario(email, senha)).firstOrNull;
+                        final encrypted = Crypt.sha256(senha, salt: 'hEyfewV6codPfHzpuKochQctsxrPkYBz').toString();
 
-                        if(usuario ==  null && context.mounted) {
-                          showErrorMessage(context, 'Falha ao fazer login', 'Usuário com email e senha passados não encontrado');
+                        final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
+                        final usuario = await usuarioDao.findUsuario(email, encrypted);
+
+                        if(usuario.result == null && context.mounted) {
+                          showErrorMessage(context, 'Falha ao fazer login', usuario.message!);
                         } else {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder:(context) => HomePage(dadosUsuario: usuario,)
+                              builder:(context) => HomePage(dadosUsuario: usuario.result,)
                             )
                           );
                         }
@@ -93,18 +97,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  TextField _buildEmailTextField(BuildContext context) {
-    return TextField(
-      controller: _emailController,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        labelText: 'E-mail',
-        border: const OutlineInputBorder(),
-        errorText: _erroEmailText,
       ),
     );
   }

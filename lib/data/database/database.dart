@@ -15,7 +15,7 @@ class Usuarios extends Table {
   TextColumn get celular => text().withLength(max: 20).nullable()();
   TextColumn get foto => text().withLength(max: 100).nullable()();
   TextColumn get endereco => text().withLength(min: 1, max: 50)();
-  TextColumn get senha => text().withLength(min: 4, max: 20)();
+  TextColumn get senha => text().withLength(max: 100)();
 }
 
 class Pets extends Table {
@@ -53,11 +53,12 @@ class Anamneses extends Table {
 class Vacinas extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nome => text().withLength(min: 1, max: 60).unique()();
-  TextColumn get descricao => text().withLength(min: 1, max: 300)();
-  TextColumn get periodoDoses => text().withLength(min: 1, max: 300)();
+  TextColumn get descricao => text().withLength(min: 1, max: 500)();
+  TextColumn get periodoDoses => text().withLength(min: 1, max: 500)();
 }
 
 class Vacinacaos extends Table {
+  IntColumn get id => integer().autoIncrement()();
   IntColumn get petId => integer().customConstraint('NOT NULL REFERENCES pets(id)')();
   IntColumn get vacinaId => integer().customConstraint('NOT NULL REFERENCES vacinas(id)')();
   TextColumn get vaterinario => text().withLength(min: 1, max: 60)();
@@ -113,20 +114,32 @@ class Response<T> {
 class UsuariosDao extends DatabaseAccessor<AppDatabase> with _$UsuariosDaoMixin {
   UsuariosDao(AppDatabase db) : super(db);
 
-  Stream<List<Usuario>> watchAllUsuarios() {
-    return (select(usuarios)
-        ..orderBy([
-                (u) => OrderingTerm(expression: u.nome)
-        ])
-    ).watch();
+  Future<int?> countUsuarios() async {
+    final countExp = usuarios.id.count();
+    final query = selectOnly(usuarios)..addColumns([countExp]);
+    return await query.map((row) => row.read(countExp)).getSingle();
   }
-  Future<List<Usuario>> findUsuario(String email, String senha) {
-    return (select(usuarios)
+
+  Future<Response<Usuario>> findUsuario(String email, String senha) async {
+    Response<Usuario> resultado;
+
+    try {
+      final user = await (select(usuarios)
         ..where(
                 (u) => u.email.equals(email) & u.senha.equals(senha)
-        )
-    ).get();
+        )).getSingleOrNull();
+      if(user != null) {
+        resultado = Response<Usuario>(result: user, message: null);
+      } else {
+        resultado = Response<Usuario>(result: null, message: "O email e/ou a senha estão errados");
+      }
+
+    } catch (exception) {
+      resultado = Response<Usuario>(result: null, message: "Ocorreu um erro ao tentar fazer login, tente novamente");
+    }
+    return resultado;
   }
+
   Future<Response<Usuario>> cadastrarUsuario(Insertable<Usuario> usuario) async {
     Response<Usuario> resultado;
 
@@ -148,8 +161,32 @@ class UsuariosDao extends DatabaseAccessor<AppDatabase> with _$UsuariosDaoMixin 
     
     return resultado;
   }
-  Future updateUsuario(Insertable<Usuario> usuario) => update(usuarios).replace(usuario);
-  Future deleteUsuario(Insertable<Usuario> usuario) => delete(usuarios).delete(usuario);
+
+  Future<Response<bool>> updateUsuario(Insertable<Usuario> usuario) async {
+    Response<bool> resultado;
+
+    try {
+      await update(usuarios).replace(usuario);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: 'Ocorreu um erro ao alterar sua conta, tente novamente');
+    }
+
+    return resultado;
+  }
+
+  Future<Response<bool>> deleteUsuario(Insertable<Usuario> usuario) async {
+    Response<bool> resultado;
+
+    try {
+      await delete(usuarios).delete(usuario);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: 'Ocorreu um erro ao deletar sua conta, tente novamente');
+    }
+
+    return resultado;
+  }
 }
 
 @DriftAccessor(tables: [Pets])
@@ -166,9 +203,45 @@ class PetsDao extends DatabaseAccessor<AppDatabase> with _$PetsDaoMixin {
       ])
     ).watch();
   }
-  Future<int> insertPet(Insertable<Pet> pet) => into(pets).insert(pet);
-  Future<bool> updatePet(Insertable<Pet> pet) => update(pets).replace(pet);
-  Future deletePet(Insertable<Pet> pet) => delete(pets).delete(pet);
+
+  Future<Response<bool>> insertPet(Insertable<Pet> pet) async {
+    Response<bool> resultado;
+
+    try {
+      await into(pets).insert(pet);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: "Ocorreu um erro ao cadastrar o pet, tente novamente");
+    }
+
+    return resultado;
+  }
+
+  Future<Response<bool>> updatePet(Insertable<Pet> pet) async {
+    Response<bool> resultado;
+
+    try {
+      await update(pets).replace(pet);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: 'Ocorreu um erro ao alterar o pet, tente novamente');
+    }
+
+    return resultado;
+  }
+
+  Future<Response<bool>> deletePet(Insertable<Pet> pet) async {
+    Response<bool> resultado;
+
+    try {
+      await delete(pets).delete(pet);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: 'Ocorreu um erro ao deletar o pet, tente novamente');
+    }
+
+    return resultado;
+  }
 }
 
 @DriftAccessor(tables: [Anamneses])
@@ -186,13 +259,42 @@ class AnamnesesDao extends DatabaseAccessor<AppDatabase> with _$AnamnesesDaoMixi
     ).watch();
   }
 
-  Future<int> insertAnamnese(Insertable<Anamnese> anamnese) => into(anamneses).insert(anamnese);
-  Future deleteAnamnese(Insertable<Anamnese> anamnese) => delete(anamneses).delete(anamnese);
+  Future<Response<bool>> insertAnamnese(Insertable<Anamnese> anamnese) async {
+    Response<bool> resultado;
+
+    try {
+      await into(anamneses).insert(anamnese);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: "Ocorreu um erro ao cadastrar a anamnese, tente novamente");
+    }
+
+    return resultado;
+  }
+
+  Future<Response<bool>> deleteAnamnese(Insertable<Anamnese> anamnese) async {
+    Response<bool> resultado;
+
+    try {
+      await delete(anamneses).delete(anamnese);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: 'Ocorreu um erro ao deletar a anamnese, tente novamente');
+    }
+
+    return resultado;
+  }
 }
 
 @DriftAccessor(tables: [Vacinas])
 class VacinasDao extends DatabaseAccessor<AppDatabase> with _$VacinasDaoMixin {
   VacinasDao(AppDatabase db) : super(db);
+
+  Future<int?> countVacinas() async {
+    final countExp = vacinas.id.count();
+    final query = selectOnly(vacinas)..addColumns([countExp]);
+    return await query.map((row) => row.read(countExp)).getSingle();
+  }
 
   Stream<List<Vacina>> watchAllVacinas() {
     return (select(vacinas)
@@ -245,5 +347,29 @@ class VacinacaosDao extends DatabaseAccessor<AppDatabase> with _$VacinacaosDaoMi
     );
   }
 
-  Future<int> insertVacinacao(Insertable<Vacinacao> vacinacao) => into(vacinacaos).insert(vacinacao);
+  Future<Response<bool>> insertVacinacao(Insertable<Vacinacao> vacinacao) async {
+    Response<bool> resultado;
+
+    try {
+      await into(vacinacaos).insert(vacinacao);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false, message: "Ocorreu um erro ao cadastrar a vacinação, tente novamente");
+    }
+
+    return resultado;
+  }
+
+  Future<Response<bool>> deleteVacinacao(Insertable<Vacinacao> vacinacao) async {
+    Response<bool> resultado;
+    try {
+      await delete(vacinacaos).delete(vacinacao);
+      resultado = Response<bool>(result: true, message: null);
+    } catch (exception) {
+      resultado = Response<bool>(result: false,
+          message: 'Ocorreu um erro ao deletar a vacinação, tente novamente');
+    }
+
+    return resultado;
+  }
 }

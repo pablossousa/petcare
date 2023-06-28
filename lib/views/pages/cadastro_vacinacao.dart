@@ -2,6 +2,8 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:drift/drift.dart' as d;
+import 'package:mds/views/components/buildTextFieldPretty.dart';
+import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/database/database.dart';
@@ -45,30 +47,6 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
     super.dispose();
   }
 
-  void _showErrorMessage(BuildContext context) {
-    Widget okButton = TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: const Text('Ok'),
-    );
-
-    AlertDialog alerta = AlertDialog(
-      title: const Text('Falha ao fazer o cadastro da vacinação'),
-      content: const Text('Ocorreu um erro ao fazer o cadastro da vacinação, tente novamente'),
-      actions: [
-        okButton,
-      ],
-    );
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alerta;
-        }
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +61,7 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            _buildVeterinarioField(context),
+            buildTextFieldPretty(context, _veterinarioController, TextInputType.text, _veterinarioErrorMessage),
             const ListTile(
               title: Text(
                 'Vacina',
@@ -111,14 +89,14 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            _buildDoseField(context),
+            buildTextFieldPretty(context, _doseController, TextInputType.number, _doseErrorMessage),
             const ListTile(
               title: Text(
                 'Lote',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            _buildLoteField(context),
+            buildTextFieldPretty(context, _loteController, TextInputType.number, _loteErrorMessage),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -135,7 +113,7 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
                     if(_veterinarioErrorMessage == null && _vacina != null
                       && _doseErrorMessage == null && _loteErrorMessage == null) {
                       final vacinacaoDao = Provider.of<VacinacaosDao>(context, listen: false);
-                      final result = await vacinacaoDao.insertVacinacao(VacinacaosCompanion(
+                      final resposta = await vacinacaoDao.insertVacinacao(VacinacaosCompanion(
                         petId: d.Value(widget.idPet!),
                         vacinaId: d.Value(_vacina!.id),
                         vaterinario: d.Value(veterinario),
@@ -145,8 +123,8 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
                         lote: d.Value(int.parse(lote)),
                       ));
 
-                      if(result == 0 && context.mounted) {
-                        _showErrorMessage(context);
+                      if(resposta.result == false && context.mounted) {
+                        showErrorMessage(context, "Falha ao cadastrar vacinação", resposta.message!);
                       } else {
                         Navigator.pop(context);
                       }
@@ -160,22 +138,6 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
             )
           ],
         )
-    );
-  }
-
-  Padding _buildVeterinarioField(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextField(
-        controller: _veterinarioController,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black)
-          ),
-          errorText: _veterinarioErrorMessage
-        ),
-      ),
     );
   }
 
@@ -229,6 +191,7 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
           });
         },
         dateFormat: DateFormat.yMMMMd(),
+        mode: DateTimeFieldPickerMode.date,
         decoration: const InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black)
@@ -250,6 +213,7 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
           });
         },
         dateFormat: DateFormat.yMMMMd(),
+        mode: DateTimeFieldPickerMode.date,
         decoration: const InputDecoration(
           border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black)
@@ -257,38 +221,6 @@ class _CadastroVacinacaoPageState extends State<CadastroVacinacaoPage> {
         ),
         firstDate: DateTime(2000, 1, 1),
         selectedDate: _retorno,
-      ),
-    );
-  }
-
-  Padding _buildDoseField(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextField(
-        controller: _doseController,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black)
-          ),
-          errorText: _doseErrorMessage
-        ),
-      ),
-    );
-  }
-
-  Padding _buildLoteField(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextField(
-        controller: _loteController,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black)
-          ),
-          errorText: _loteErrorMessage
-        ),
       ),
     );
   }

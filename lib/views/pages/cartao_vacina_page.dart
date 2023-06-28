@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/cadastro_vacinacao.dart';
 import 'package:mds/views/pages/vacina_page.dart';
 import 'package:provider/provider.dart';
@@ -119,6 +120,17 @@ class _CartaoVacinaPageState extends State<CartaoVacinaPage> {
               style: const TextStyle(fontSize: 16),
             ),
           ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () async {
+              final vacinacaoDao = Provider.of<VacinacaosDao>(context, listen: false);
+              final resultado = await vacinacaoDao.deleteVacinacao(itemVacinacaoWithVacina.vacinacao);
+
+              if(resultado.result == false && context.mounted) {
+                showErrorMessage(context, "Falha ao deletar vacinação", resultado.message!);
+              }
+            },
+          )
         ],
       ),
     );

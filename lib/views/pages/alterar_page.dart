@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/home_page.dart';
+import 'package:mds/views/pages/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:drift/drift.dart' as d;
 
@@ -29,7 +31,7 @@ class _AlterarPageState extends State<AlterarPage> {
   void initState() {
     super.initState();
     _nomeController = TextEditingController()..text = widget.dadosUsuario!.nome;
-    _celularController = TextEditingController()..text = widget.dadosUsuario!.celular!;
+    _celularController = TextEditingController()..text = widget.dadosUsuario!.celular == null ? "" : widget.dadosUsuario!.celular!;
     _enderecoController = TextEditingController()..text = widget.dadosUsuario!.endereco;
     _emailController = TextEditingController()..text = widget.dadosUsuario!.email;
   }
@@ -80,7 +82,7 @@ class _AlterarPageState extends State<AlterarPage> {
                       if(_nomeErrorMessage == null && _enderecoErrorMessage == null
                           && _emailErrorMessage == null) {
                         final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
-                        await usuarioDao.updateUsuario(UsuariosCompanion(
+                        final resultado = await usuarioDao.updateUsuario(UsuariosCompanion(
                           id: d.Value(widget.dadosUsuario!.id),
                           nome: d.Value(_nomeController.value.text),
                           celular: d.Value(_celularController.value.text.isEmpty ? widget.dadosUsuario?.celular : _celularController.value.text),
@@ -89,16 +91,46 @@ class _AlterarPageState extends State<AlterarPage> {
                           senha: d.Value(widget.dadosUsuario!.senha),
                         ));
 
-                        final usuario = (await usuarioDao.findUsuario(_emailController.value.text, widget.dadosUsuario!.senha)).firstOrNull;
-                        if (context.mounted) {
-                          Navigator.pushReplacement(context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(dadosUsuario: usuario,)
-                            )
-                          );
+                        if(resultado.result == false && context.mounted) {
+                          showErrorMessage(context, "Falha ao alterar conta", resultado.message!);
+                        } else {
+                          final usuario = await usuarioDao.findUsuario(_emailController.value.text, widget.dadosUsuario!.senha);
+                          if (usuario.result == null && context.mounted) {
+                            showErrorMessage(context, "Falha ao alterar conta", "Ocorreu uma falha ao alterar sua conta, tente novamente");
+                          }
+                          else {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage(dadosUsuario: usuario.result,)
+                                )
+                            );
+                          }
                         }
                       }
                       setState(() {});
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text('Deletar conta'),
+                    onPressed: () async {
+                      bool? retorno = await showDialog(
+                        context: context,
+                        builder: (context) => _DeleteDialog()
+                      );
+                      if(retorno! && context.mounted) {
+                        final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
+                        final resultado = await usuarioDao.deleteUsuario(widget.dadosUsuario!);
+
+                        if(resultado.result == false && context.mounted) {
+                          showErrorMessage(context, "Falha ao deletar conta", resultado.message!);
+                        } else {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()
+                              )
+                          );
+                        }
+                      }
                     },
                   ),
                 ],
@@ -116,7 +148,7 @@ class _AlterarPageState extends State<AlterarPage> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: 'Nome',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _nomeErrorMessage,
       ),
     );
@@ -139,7 +171,7 @@ class _AlterarPageState extends State<AlterarPage> {
       keyboardType: TextInputType.streetAddress,
       decoration: InputDecoration(
         labelText: 'Endereço',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _enderecoErrorMessage,
       ),
     );
@@ -151,9 +183,34 @@ class _AlterarPageState extends State<AlterarPage> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: 'E-mail',
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: _emailErrorMessage,
       ),
+    );
+  }
+}
+
+class _DeleteDialog extends StatefulWidget {
+  @override
+  _DialogState createState() => _DialogState();
+}
+
+class _DialogState extends State<_DeleteDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text("Deletar sua conta"),
+      content: const Text("Você realmente deseja deletar sua conta?"),
+      actions: [
+        ElevatedButton(
+          child: const Text("Confirmar"),
+          onPressed: () => Navigator.of(context).pop(true),
+        ),
+        ElevatedButton(
+          child: const Text("Cancelar"),
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
+      ],
     );
   }
 }

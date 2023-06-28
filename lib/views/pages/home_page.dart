@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/alterar_page.dart';
 import 'package:mds/views/pages/alterar_pet_page.dart';
 import 'package:mds/views/pages/perfil_pet.dart';
@@ -118,7 +119,14 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.change_circle)
             ),
             IconButton(
-                onPressed: () => petDao.deletePet(itemPet),
+                onPressed: () async {
+                  final petDao = Provider.of<PetsDao>(context, listen: false);
+                  final resultado = await petDao.deletePet(itemPet);
+
+                  if(resultado.result == false && context.mounted) {
+                    showErrorMessage(context, "Falha ao deletar pet", resultado.message!);
+                  }
+                },
                 icon: const Icon(Icons.delete)
             )
           ],

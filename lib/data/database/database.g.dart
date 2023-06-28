@@ -62,8 +62,7 @@ class $UsuariosTable extends Usuarios with TableInfo<$UsuariosTable, Usuario> {
   @override
   late final GeneratedColumn<String> senha = GeneratedColumn<String>(
       'senha', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 4, maxTextLength: 20),
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 100),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
   @override
@@ -1674,7 +1673,7 @@ class $VacinasTable extends Vacinas with TableInfo<$VacinasTable, Vacina> {
   late final GeneratedColumn<String> descricao = GeneratedColumn<String>(
       'descricao', aliasedName, false,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 300),
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 500),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
   static const VerificationMeta _periodoDosesMeta =
@@ -1683,7 +1682,7 @@ class $VacinasTable extends Vacinas with TableInfo<$VacinasTable, Vacina> {
   late final GeneratedColumn<String> periodoDoses = GeneratedColumn<String>(
       'periodo_doses', aliasedName, false,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 300),
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 500),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
   @override
@@ -1909,6 +1908,15 @@ class $VacinacaosTable extends Vacinacaos
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $VacinacaosTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
   static const VerificationMeta _petIdMeta = const VerificationMeta('petId');
   @override
   late final GeneratedColumn<int> petId = GeneratedColumn<int>(
@@ -1957,7 +1965,7 @@ class $VacinacaosTable extends Vacinacaos
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [petId, vacinaId, vaterinario, dataHora, retorno, dose, lote];
+      [id, petId, vacinaId, vaterinario, dataHora, retorno, dose, lote];
   @override
   String get aliasedName => _alias ?? 'vacinacaos';
   @override
@@ -1967,6 +1975,9 @@ class $VacinacaosTable extends Vacinacaos
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
     if (data.containsKey('pet_id')) {
       context.handle(
           _petIdMeta, petId.isAcceptableOrUnknown(data['pet_id']!, _petIdMeta));
@@ -2015,11 +2026,13 @@ class $VacinacaosTable extends Vacinacaos
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => const {};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Vacinacao map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Vacinacao(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       petId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}pet_id'])!,
       vacinaId: attachedDatabase.typeMapping
@@ -2044,6 +2057,7 @@ class $VacinacaosTable extends Vacinacaos
 }
 
 class Vacinacao extends DataClass implements Insertable<Vacinacao> {
+  final int id;
   final int petId;
   final int vacinaId;
   final String vaterinario;
@@ -2052,7 +2066,8 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
   final int dose;
   final int lote;
   const Vacinacao(
-      {required this.petId,
+      {required this.id,
+      required this.petId,
       required this.vacinaId,
       required this.vaterinario,
       required this.dataHora,
@@ -2062,6 +2077,7 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
     map['pet_id'] = Variable<int>(petId);
     map['vacina_id'] = Variable<int>(vacinaId);
     map['vaterinario'] = Variable<String>(vaterinario);
@@ -2074,6 +2090,7 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
 
   VacinacaosCompanion toCompanion(bool nullToAbsent) {
     return VacinacaosCompanion(
+      id: Value(id),
       petId: Value(petId),
       vacinaId: Value(vacinaId),
       vaterinario: Value(vaterinario),
@@ -2088,6 +2105,7 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Vacinacao(
+      id: serializer.fromJson<int>(json['id']),
       petId: serializer.fromJson<int>(json['petId']),
       vacinaId: serializer.fromJson<int>(json['vacinaId']),
       vaterinario: serializer.fromJson<String>(json['vaterinario']),
@@ -2101,6 +2119,7 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
       'petId': serializer.toJson<int>(petId),
       'vacinaId': serializer.toJson<int>(vacinaId),
       'vaterinario': serializer.toJson<String>(vaterinario),
@@ -2112,7 +2131,8 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
   }
 
   Vacinacao copyWith(
-          {int? petId,
+          {int? id,
+          int? petId,
           int? vacinaId,
           String? vaterinario,
           DateTime? dataHora,
@@ -2120,6 +2140,7 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
           int? dose,
           int? lote}) =>
       Vacinacao(
+        id: id ?? this.id,
         petId: petId ?? this.petId,
         vacinaId: vacinaId ?? this.vacinaId,
         vaterinario: vaterinario ?? this.vaterinario,
@@ -2131,6 +2152,7 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
   @override
   String toString() {
     return (StringBuffer('Vacinacao(')
+          ..write('id: $id, ')
           ..write('petId: $petId, ')
           ..write('vacinaId: $vacinaId, ')
           ..write('vaterinario: $vaterinario, ')
@@ -2143,12 +2165,13 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(petId, vacinaId, vaterinario, dataHora, retorno, dose, lote);
+  int get hashCode => Object.hash(
+      id, petId, vacinaId, vaterinario, dataHora, retorno, dose, lote);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Vacinacao &&
+          other.id == this.id &&
           other.petId == this.petId &&
           other.vacinaId == this.vacinaId &&
           other.vaterinario == this.vaterinario &&
@@ -2159,6 +2182,7 @@ class Vacinacao extends DataClass implements Insertable<Vacinacao> {
 }
 
 class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
+  final Value<int> id;
   final Value<int> petId;
   final Value<int> vacinaId;
   final Value<String> vaterinario;
@@ -2166,8 +2190,8 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
   final Value<DateTime> retorno;
   final Value<int> dose;
   final Value<int> lote;
-  final Value<int> rowid;
   const VacinacaosCompanion({
+    this.id = const Value.absent(),
     this.petId = const Value.absent(),
     this.vacinaId = const Value.absent(),
     this.vaterinario = const Value.absent(),
@@ -2175,9 +2199,9 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
     this.retorno = const Value.absent(),
     this.dose = const Value.absent(),
     this.lote = const Value.absent(),
-    this.rowid = const Value.absent(),
   });
   VacinacaosCompanion.insert({
+    this.id = const Value.absent(),
     required int petId,
     required int vacinaId,
     required String vaterinario,
@@ -2185,7 +2209,6 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
     required DateTime retorno,
     required int dose,
     required int lote,
-    this.rowid = const Value.absent(),
   })  : petId = Value(petId),
         vacinaId = Value(vacinaId),
         vaterinario = Value(vaterinario),
@@ -2194,6 +2217,7 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
         dose = Value(dose),
         lote = Value(lote);
   static Insertable<Vacinacao> custom({
+    Expression<int>? id,
     Expression<int>? petId,
     Expression<int>? vacinaId,
     Expression<String>? vaterinario,
@@ -2201,9 +2225,9 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
     Expression<DateTime>? retorno,
     Expression<int>? dose,
     Expression<int>? lote,
-    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (petId != null) 'pet_id': petId,
       if (vacinaId != null) 'vacina_id': vacinaId,
       if (vaterinario != null) 'vaterinario': vaterinario,
@@ -2211,20 +2235,20 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
       if (retorno != null) 'retorno': retorno,
       if (dose != null) 'dose': dose,
       if (lote != null) 'lote': lote,
-      if (rowid != null) 'rowid': rowid,
     });
   }
 
   VacinacaosCompanion copyWith(
-      {Value<int>? petId,
+      {Value<int>? id,
+      Value<int>? petId,
       Value<int>? vacinaId,
       Value<String>? vaterinario,
       Value<DateTime>? dataHora,
       Value<DateTime>? retorno,
       Value<int>? dose,
-      Value<int>? lote,
-      Value<int>? rowid}) {
+      Value<int>? lote}) {
     return VacinacaosCompanion(
+      id: id ?? this.id,
       petId: petId ?? this.petId,
       vacinaId: vacinaId ?? this.vacinaId,
       vaterinario: vaterinario ?? this.vaterinario,
@@ -2232,13 +2256,15 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
       retorno: retorno ?? this.retorno,
       dose: dose ?? this.dose,
       lote: lote ?? this.lote,
-      rowid: rowid ?? this.rowid,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
     if (petId.present) {
       map['pet_id'] = Variable<int>(petId.value);
     }
@@ -2260,23 +2286,20 @@ class VacinacaosCompanion extends UpdateCompanion<Vacinacao> {
     if (lote.present) {
       map['lote'] = Variable<int>(lote.value);
     }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
     return map;
   }
 
   @override
   String toString() {
     return (StringBuffer('VacinacaosCompanion(')
+          ..write('id: $id, ')
           ..write('petId: $petId, ')
           ..write('vacinaId: $vacinaId, ')
           ..write('vaterinario: $vaterinario, ')
           ..write('dataHora: $dataHora, ')
           ..write('retorno: $retorno, ')
           ..write('dose: $dose, ')
-          ..write('lote: $lote, ')
-          ..write('rowid: $rowid')
+          ..write('lote: $lote')
           ..write(')'))
         .toString();
   }

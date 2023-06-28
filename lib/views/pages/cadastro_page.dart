@@ -1,4 +1,7 @@
+import 'package:crypt/crypt.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mds/views/components/buildTextField.dart';
 import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/login_page.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +18,8 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
+  final _maskFormatter = MaskTextInputFormatter(mask: '(##) #####-####');
+
   late TextEditingController _nomeController;
   late TextEditingController _celularController;
   late TextEditingController _enderecoController;
@@ -56,97 +61,95 @@ class _CadastroPageState extends State<CadastroPage> {
       appBar: AppBar(
         title: const Text('Cadastro'),
       ),
-      body: SingleChildScrollView(
-        child: Container(
+      body: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildNomeTextField(context),
-              const SizedBox(height: 15),
-              _buildCelularTextField(context),
-              const SizedBox(height: 15),
-              _buildEnderecoTextField(context),
-              const SizedBox(height: 15),
-              _buildEmailTextField(context),
-              const SizedBox(height: 15),
-              _buildSenhaTextField(context),
-              const SizedBox(height: 15),
-              _buildConfirmarTextField(context),
-              const SizedBox(height: 15),
-              Row(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight
+            ),
+            child: IntrinsicHeight(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  ElevatedButton(
-                    child: const Text('Cadastrar'),
-                    onPressed: () async {
-                      final nome = _nomeController.value.text;
-                      final endereco = _enderecoController.value.text;
-                      final email = _emailController.value.text;
-                      final senha = _senhaController.value.text;
-                      final confirmar = _confirmarController.value.text;
+                  buildTextField(context, _nomeController, TextInputType.text, 'Nome', _nomeErrorMessage),
+                  const SizedBox(height: 15),
+                  _buildCelularTextField(context),
+                  const SizedBox(height: 15),
+                  buildTextField(context, _enderecoController, TextInputType.streetAddress, 'Endereço', _enderecoErrorMessage),
+                  const SizedBox(height: 15),
+                  buildTextField(context, _emailController, TextInputType.emailAddress, 'Email', _emailErrorMessage),
+                  const SizedBox(height: 15),
+                  _buildSenhaTextField(context),
+                  const SizedBox(height: 15),
+                  _buildConfirmarTextField(context),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        child: const Text('Cadastrar'),
+                        onPressed: () async {
+                          final nome = _nomeController.value.text;
+                          final endereco = _enderecoController.value.text;
+                          final email = _emailController.value.text;
+                          final senha = _senhaController.value.text;
+                          final confirmar = _confirmarController.value.text;
 
-                      _nomeErrorMessage = nome.isEmpty ? 'Digite um nome' : null;
-                      _enderecoErrorMessage = endereco.isEmpty ? 'Digite um endereço' : null;
-                      _emailErrorMessage = email.isEmpty ? 'Digite um email' : null;
-                      _senhaErrorMessage = senha.isEmpty ? 'Digite uma senha' : null;
-                      _confirmarErrorMessage = confirmar.isEmpty ? 'Confirme sua senha' : null;
+                          _nomeErrorMessage = nome.isEmpty ? 'Digite um nome' : null;
+                          _enderecoErrorMessage = endereco.isEmpty ? 'Digite um endereço' : null;
+                          _emailErrorMessage = email.isEmpty ? 'Digite um email' : null;
+                          _senhaErrorMessage = senha.isEmpty ? 'Digite uma senha' : null;
+                          _confirmarErrorMessage = confirmar.isEmpty ? 'Confirme sua senha' : null;
 
-                      if(_nomeErrorMessage == null && _enderecoErrorMessage == null
-                        && _emailErrorMessage == null && _senhaErrorMessage == null
-                        && _confirmarErrorMessage == null) {
-                        _senhaErrorMessage = senha.length < 4 ? 'Senha deve ter pleo menos 4 caracteres' : null;
-                        _confirmarErrorMessage = senha != confirmar ? 'Confirmar senha deve ser igual a senha' : null;
+                          if(_nomeErrorMessage == null && _enderecoErrorMessage == null
+                            && _emailErrorMessage == null && _senhaErrorMessage == null
+                            && _confirmarErrorMessage == null) {
+                            _senhaErrorMessage = senha.length < 4 ? 'Senha deve ter pleo menos 4 caracteres' : null;
+                            _confirmarErrorMessage = senha != confirmar ? 'Confirmar senha deve ser igual a senha' : null;
 
-                        if(_senhaErrorMessage == null && _confirmarErrorMessage == null) {
-                          final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
-                          final response = await usuarioDao.cadastrarUsuario(UsuariosCompanion(
-                            nome: d.Value(_nomeController.value.text),
-                            celular: d.Value(_celularController.value.text.isEmpty ? null : _celularController.value.text),
-                            endereco: d.Value(_enderecoController.value.text),
-                            email: d.Value(_emailController.value.text),
-                            senha: d.Value(_senhaController.value.text),
-                          ));
+                            if(_senhaErrorMessage == null && _confirmarErrorMessage == null) {
+                              final encrypted = Crypt.sha256(senha, salt: 'hEyfewV6codPfHzpuKochQctsxrPkYBz').toString();
 
-                          if(response.result == null && context.mounted) {
-                            showErrorMessage(context, 'Falha ao fazer cadastro de usuário', response.message!);
-                          } else {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(dadosUsuario: response.result,)
-                              )
-                            );
+                              final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
+                              final response = await usuarioDao.cadastrarUsuario(UsuariosCompanion(
+                                nome: d.Value(_nomeController.value.text),
+                                celular: d.Value(_maskFormatter.getMaskedText().isEmpty ? null : _maskFormatter.getMaskedText()),
+                                endereco: d.Value(_enderecoController.value.text),
+                                email: d.Value(_emailController.value.text),
+                                senha: d.Value(encrypted),
+                              ));
+
+                              if(response.result == null && context.mounted) {
+                                showErrorMessage(context, 'Falha ao fazer cadastro de usuário', response.message!);
+                              } else {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomePage(dadosUsuario: response.result,)
+                                  )
+                                );
+                              }
+                            }
                           }
-                        }
-                      }
-                      setState(() {});
-                    },
+                          setState(() {});
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Login'),
+                        onPressed: () => {Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder:(context) => const LoginPage(),
+                        ))},
+                      )
+                    ],
                   ),
-                  TextButton(
-                    child: const Text('Login'),
-                    onPressed: () => {Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder:(context) => const LoginPage(),
-                    ))},
-                  )
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
-    );
-  }
-
-  TextField _buildNomeTextField(BuildContext context) {
-    return TextField(
-      controller: _nomeController,
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-        labelText: 'Nome',
-        border: const OutlineInputBorder(),
-        errorText: _nomeErrorMessage,
-      ),
+      )
     );
   }
 
@@ -158,30 +161,9 @@ class _CadastroPageState extends State<CadastroPage> {
         labelText: 'Celular',
         border: OutlineInputBorder(),
       ),
-    );
-  }
-
-  TextField _buildEnderecoTextField(BuildContext context) {
-    return TextField(
-      controller: _enderecoController,
-      keyboardType: TextInputType.streetAddress,
-      decoration: InputDecoration(
-        labelText: 'Endereço',
-        border: const OutlineInputBorder(),
-        errorText: _enderecoErrorMessage,
-      ),
-    );
-  }
-
-  TextField _buildEmailTextField(BuildContext context) {
-    return TextField(
-      controller: _emailController,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        labelText: 'E-mail',
-        border: const OutlineInputBorder(),
-        errorText: _emailErrorMessage,
-      ),
+      inputFormatters: [
+        _maskFormatter
+      ],
     );
   }
 
