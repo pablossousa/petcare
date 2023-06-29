@@ -72,6 +72,22 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
   
 </div>
 
+<h2>⏳ Gostaríamos de Implementar</h2>
+
+Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curto prazo de implementação. Porém, podem ser possíveis adições ao sistema em futuras alterações:
+
+<ul>
+  <li>Foto de perfl para o usuário e pet</li>
+  <li>Carteira de identidade para o pet</li>
+  <li>Download da identidade do pet e da carteira de vacinação</li>
+  <li>Seguir outros usuários</li>
+  <li>Ver o perfil de outros usuáruios</li>
+  <li>Implantar um banco de dados não local</li>
+  <li>Recuperação de senha por e-mail</li>
+</ul>
+
+https://www.figma.com/file/YonoXbSKjghswpb4J8TaaO/Pet-Care?type=design&node-id=0%3A1&mode=design&t=jSo65QcuTjvafGY1-1
+
 <h2>📢 Tutorial</h2>
 
 <p align="justify">
@@ -149,6 +165,7 @@ Ao clicar no emulador do Pixel 6 o sistema abrirá o celular. A primeira vez lev
 <p align="center">
 <img src="img/final.png">
 </p>
+
 
 <h2>👨‍💻👩‍💻 Integrantes</h2>
 
