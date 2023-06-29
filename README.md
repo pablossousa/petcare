@@ -72,7 +72,7 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
   
 </div>
 
-<h2>Prototipagem</h2>
+<h2>✏️ Prototipagem</h2>
 
 A prototipagem foi criada no Figma como mencionado. E pode ser encontrada em [Prototipagem PetCare](https://www.figma.com/file/YonoXbSKjghswpb4J8TaaO/Pet-Care?type=design&node-id=0%3A1&mode=design&t=jSo65QcuTjvafGY1-1)
 
