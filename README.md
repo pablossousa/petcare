@@ -72,6 +72,10 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
   
 </div>
 
+<h2>Prototipagem</h2>
+
+A prototipagem foi criada no Figma como mencionado. E pode ser encontrada em [Prototipagem PetCare](https://www.figma.com/file/YonoXbSKjghswpb4J8TaaO/Pet-Care?type=design&node-id=0%3A1&mode=design&t=jSo65QcuTjvafGY1-1)
+
 <h2>⏳ Gostaríamos de Implementar</h2>
 
 Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curto prazo de implementação. Porém, podem ser possíveis adições ao sistema em futuras alterações:
@@ -85,8 +89,6 @@ Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curt
   <li>Implantar um banco de dados não local</li>
   <li>Recuperação de senha por e-mail</li>
 </ul>
-
-https://www.figma.com/file/YonoXbSKjghswpb4J8TaaO/Pet-Care?type=design&node-id=0%3A1&mode=design&t=jSo65QcuTjvafGY1-1
 
 <h2>📢 Tutorial</h2>
 
