@@ -78,9 +78,7 @@ A prototipagem foi criada no Figma como mencionado. E pode ser encontrada em [Pr
 
 <h2>🎬 Vídeo demonstrativo</h2>
 
- <p align="center">
 https://github.com/pablossousa/petcare/assets/92608962/3c997536-baa5-40c2-8b51-e30eac0fb455
- </p>
 
 <h2>⏳ Gostaríamos de Implementar</h2>
 
