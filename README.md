@@ -81,10 +81,9 @@ A prototipagem foi criada no Figma como mencionado. E pode ser encontrada em [Pr
 Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curto prazo de implementação. Porém, podem ser possíveis adições ao sistema em futuras alterações:
 
 <ul>
-  <li>Foto de perfl para o usuário e pet</li>
-    O usuário teria a opção de colocar uma foto de perfil para si e outras para seus pets podendo ser vistas em algumas telas como o menu principal, perfil do usuário e perfil do pet. 
-  <li>Carteira de identidade para o pet</li>
-    Cada pet teria uma carteira de identidade como no protótipo abaixo:
+  <li><b>Foto de perfl para o usuário e pet:</b> O usuário teria a opção de colocar uma foto de perfil para si e outras para seus pets podendo ser vistas em algumas telas como o menu principal, perfil do usuário e perfil do pet. </li>
+  
+  <li><b>Carteira de identidade para o pet:</b> Cada pet teria uma carteira de identidade como no protótipo abaixo:</li>
     <br><br>
     <p align="center">
       <img src="img/identidadePet.png" width="250px">
