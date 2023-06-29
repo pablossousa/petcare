@@ -17,30 +17,59 @@ class _VacinaPageState extends State<VacinaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vacina'),
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color.fromARGB(255, 68, 132, 140), Color.fromARGB(255, 92, 156, 148), Color.fromARGB(224, 140, 172, 164)]
+              )
+          ),
+        ),
+        title: Text(widget.dadosVacina!.vacina.nome),
       ),
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.only(top: 30, left: 20, right: 20, bottom: 20),
         children: [
-          ListTile(
-            title: Text(
-              widget.dadosVacina!.vacina.nome,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(
-            widget.dadosVacina!.vacina.descricao,
-              style: const TextStyle(fontSize: 16),
+          Text(
+            widget.dadosVacina!.vacina.nome,
+            style: const TextStyle(
+              fontSize: 20,
+              color: Color.fromARGB(255, 68, 132, 140),
             ),
           ),
-          ListTile(
-            title: const Text(
-              'Período e Doses',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            widget.dadosVacina!.vacina.descricao,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w300,
+              color: Color.fromARGB(255, 68, 132, 140),
             ),
-            subtitle: Text(
-              widget.dadosVacina!.vacina.periodoDoses,
-              style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 15),
+          const Text(
+            "Período e Doses",
+            style: TextStyle(
+              fontSize: 20,
+              color: Color.fromARGB(255, 68, 132, 140),
             ),
-          )
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            widget.dadosVacina!.vacina.periodoDoses,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w300,
+              color: Color.fromARGB(255, 68, 132, 140),
+            ),
+          ),
         ],
       ),
     );

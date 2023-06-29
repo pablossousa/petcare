@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/home_page.dart';
 import 'package:mds/views/pages/login_page.dart';
@@ -18,6 +19,8 @@ class AlterarPage extends StatefulWidget {
 }
 
 class _AlterarPageState extends State<AlterarPage> {
+  final _maskFormatter = MaskTextInputFormatter(mask: '(##) #####-####');
+
   late TextEditingController _nomeController;
   late TextEditingController _celularController;
   late TextEditingController _enderecoController;
@@ -47,144 +50,381 @@ class _AlterarPageState extends State<AlterarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Alterar Usuário'),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildNomeTextField(context),
-              const SizedBox(height: 15),
-              _buildCelularTextField(context),
-              const SizedBox(height: 15),
-              _buildEnderecoTextField(context),
-              const SizedBox(height: 15),
-              _buildEmailTextField(context),
-              const SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    child: const Text('Alterar Dados'),
-                    onPressed: () async {
-                      final nome = _nomeController.value.text;
-                      final endereco = _enderecoController.value.text;
-                      final email = _emailController.value.text;
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Alterar dados'),
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Color.fromARGB(255, 68, 132, 140), Color.fromARGB(255, 92, 156, 148), Color.fromARGB(224, 140, 172, 164)]
+                )
+            ),
+          ),
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 30, left: 40, right: 40, bottom: 20),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            "Digite um nome",
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: _nomeController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black87,
+                                    width: 1.0
+                                )
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black54,
+                                    width: 1.0
+                                )
+                            ),
+                            errorText: _nomeErrorMessage,
+                            errorStyle: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.0
+                                )
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.0
+                                )
+                            ),
+                          ),
+                          onChanged: (value) {
+                            if(_nomeErrorMessage != null) {
+                              _nomeErrorMessage = null;
+                              setState(() {});
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            "Digite um telefone",
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: _celularController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black87,
+                                    width: 1.0
+                                )
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black54,
+                                    width: 1.0
+                                )
+                            ),
+                          ),
+                          inputFormatters: [
+                            _maskFormatter
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            "Digite um enderço",
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: _enderecoController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black87,
+                                    width: 1.0
+                                )
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black54,
+                                    width: 1.0
+                                )
+                            ),
+                            errorText: _enderecoErrorMessage,
+                            errorStyle: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.0
+                                )
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.0
+                                )
+                            ),
+                          ),
+                          onChanged: (value) {
+                            if(_enderecoErrorMessage != null) {
+                              _enderecoErrorMessage = null;
+                              setState(() {});
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            "Digite um email",
+                            style: TextStyle(
+                              color: Colors.black38,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: _emailController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black87,
+                                    width: 1.0
+                                )
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.black54,
+                                    width: 1.0
+                                )
+                            ),
+                            errorText: _emailErrorMessage,
+                            errorStyle: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.0
+                                )
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.red,
+                                    width: 1.0
+                                )
+                            ),
+                          ),
+                          onChanged: (value) {
+                            if(_emailErrorMessage != null) {
+                              _emailErrorMessage = null;
+                              setState(() {});
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 68, 132, 140),
+                          minimumSize: const Size.fromHeight(60),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
+                      ),
+                      child: const Text(
+                        "ALTERAR DADOS",
+                        style: TextStyle(
+                            fontSize: 20
+                        ),
+                      ),
+                      onPressed: () async {
+                        final nome = _nomeController.value.text;
+                        final endereco = _enderecoController.value.text;
+                        final email = _emailController.value.text;
 
-                      _nomeErrorMessage = nome.isEmpty ? 'Digite um nome' : null;
-                      _enderecoErrorMessage = endereco.isEmpty ? 'Digite um endereço' : null;
-                      _emailErrorMessage = email.isEmpty ? 'Digite um email' : null;
+                        _nomeErrorMessage = nome.isEmpty ? 'Digite um nome' : null;
+                        _enderecoErrorMessage = endereco.isEmpty ? 'Digite um endereço' : null;
+                        _emailErrorMessage = email.isEmpty ? 'Digite um email' : null;
 
-                      if(_nomeErrorMessage == null && _enderecoErrorMessage == null
-                          && _emailErrorMessage == null) {
-                        final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
-                        final resultado = await usuarioDao.updateUsuario(UsuariosCompanion(
-                          id: d.Value(widget.dadosUsuario!.id),
-                          nome: d.Value(_nomeController.value.text),
-                          celular: d.Value(_celularController.value.text.isEmpty ? widget.dadosUsuario?.celular : _celularController.value.text),
-                          endereco: d.Value(_enderecoController.value.text),
-                          email: d.Value(_emailController.value.text),
-                          senha: d.Value(widget.dadosUsuario!.senha),
-                        ));
+                        if(_nomeErrorMessage == null && _enderecoErrorMessage == null
+                            && _emailErrorMessage == null) {
+                          final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
+                          final resultado = await usuarioDao.updateUsuario(UsuariosCompanion(
+                            id: d.Value(widget.dadosUsuario!.id),
+                            nome: d.Value(_nomeController.value.text),
+                            celular: d.Value(_celularController.value.text.isEmpty ? widget.dadosUsuario?.celular : _maskFormatter.getMaskedText()),
+                            endereco: d.Value(_enderecoController.value.text),
+                            email: d.Value(_emailController.value.text),
+                            senha: d.Value(widget.dadosUsuario!.senha),
+                          ));
 
-                        if(resultado.result == false && context.mounted) {
-                          showErrorMessage(context, "Falha ao alterar conta", resultado.message!);
-                        } else {
-                          final usuario = await usuarioDao.findUsuario(_emailController.value.text, widget.dadosUsuario!.senha);
-                          if (usuario.result == null && context.mounted) {
-                            showErrorMessage(context, "Falha ao alterar conta", "Ocorreu uma falha ao alterar sua conta, tente novamente");
+                          if(resultado.result == false && context.mounted) {
+                            showErrorMessage(context, "Falha ao alterar conta", resultado.message!);
+                          } else {
+                            final usuario = await usuarioDao.findUsuario(_emailController.value.text, widget.dadosUsuario!.senha);
+                            if (usuario.result == null && context.mounted) {
+                              showErrorMessage(context, "Falha ao alterar conta", "Ocorreu uma falha ao alterar sua conta, tente novamente");
+                            }
+                            else {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage(dadosUsuario: usuario.result,)
+                                  )
+                              );
+                            }
                           }
-                          else {
+                        }
+                        setState(() {});
+                      },
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          minimumSize: const Size.fromHeight(60),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))
+                      ),
+                      child: const Text(
+                        "DELETAR CONTA",
+                        style: TextStyle(
+                            fontSize: 20
+                        ),
+                      ),
+                      onPressed: () async {
+                        bool? retorno = await showDialog(
+                          context: context,
+                          builder: (context) => _DeleteDialog()
+                        );
+                        if(retorno! && context.mounted) {
+                          final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
+                          final resultado = await usuarioDao.deleteUsuario(widget.dadosUsuario!);
+
+                          if(resultado.result == false && context.mounted) {
+                            showErrorMessage(context, "Falha ao deletar conta", resultado.message!);
+                          } else {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage(dadosUsuario: usuario.result,)
+                                    builder: (context) => const LoginPage()
                                 )
                             );
                           }
                         }
-                      }
-                      setState(() {});
-                    },
-                  ),
-                  ElevatedButton(
-                    child: const Text('Deletar conta'),
-                    onPressed: () async {
-                      bool? retorno = await showDialog(
-                        context: context,
-                        builder: (context) => _DeleteDialog()
-                      );
-                      if(retorno! && context.mounted) {
-                        final usuarioDao = Provider.of<UsuariosDao>(context, listen: false);
-                        final resultado = await usuarioDao.deleteUsuario(widget.dadosUsuario!);
-
-                        if(resultado.result == false && context.mounted) {
-                          showErrorMessage(context, "Falha ao deletar conta", resultado.message!);
-                        } else {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()
-                              )
-                          );
-                        }
-                      }
-                    },
-                  ),
-                ],
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
         ),
-      ),
-    );
-  }
-
-  TextField _buildNomeTextField(BuildContext context) {
-    return TextField(
-      controller: _nomeController,
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-        labelText: 'Nome',
-        border: const OutlineInputBorder(),
-        errorText: _nomeErrorMessage,
-      ),
-    );
-  }
-
-  TextField _buildCelularTextField(BuildContext context) {
-    return TextField(
-      controller: _celularController,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-        labelText: 'Celular',
-        border: OutlineInputBorder(),
-      ),
-    );
-  }
-
-  TextField _buildEnderecoTextField(BuildContext context) {
-    return TextField(
-      controller: _enderecoController,
-      keyboardType: TextInputType.streetAddress,
-      decoration: InputDecoration(
-        labelText: 'Endereço',
-        border: const OutlineInputBorder(),
-        errorText: _enderecoErrorMessage,
-      ),
-    );
-  }
-
-  TextField _buildEmailTextField(BuildContext context) {
-    return TextField(
-      controller: _emailController,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        labelText: 'E-mail',
-        border: const OutlineInputBorder(),
-        errorText: _emailErrorMessage,
       ),
     );
   }

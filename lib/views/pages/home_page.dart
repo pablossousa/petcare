@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mds/views/components/show_dialog_message.dart';
 import 'package:mds/views/pages/alterar_page.dart';
-import 'package:mds/views/pages/alterar_pet_page.dart';
 import 'package:mds/views/pages/perfil_pet.dart';
 import 'package:provider/provider.dart';
 import 'cadastro_pet_page.dart';
@@ -23,51 +21,58 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: ListTile(
-          leading: const Icon(Icons.account_circle),
-          title: Text(widget.dadosUsuario!.nome),
-          subtitle: Text(widget.dadosUsuario!.email),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                    MaterialPageRoute(
-                      builder: (context) => AlterarPage(dadosUsuario: widget.dadosUsuario,)
-                    )
-                  );
-                },
-                icon: const Icon(Icons.change_circle),
-              ),
-            ],
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color.fromARGB(255, 68, 132, 140), Color.fromARGB(255, 92, 156, 148), Color.fromARGB(224, 140, 172, 164)]
+              )
+          ),
+        ),
+        title: GestureDetector(
+          onTap: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(
+                    builder: (context) => AlterarPage(dadosUsuario: widget.dadosUsuario,)
+                )
+            );
+          },
+          child: Container(
+            color: Colors.transparent,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Icon(Icons.account_circle),
+                Text(widget.dadosUsuario!.nome),
+                const Icon(Icons.draw),
+              ],
+            ),
           ),
         ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(
-            width: double.infinity,
-            height: 20,
-          ),
-          const Text(
-            'Meus Pets',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-          _buildPetList(context),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => CadastroPetPage(idUsuario: widget.dadosUsuario!.id,)
+      body: Container(
+        padding: const EdgeInsets.only(top: 15 , left: 10, right: 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Meus Pets',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w300,
+                color: Color.fromARGB(255, 68, 132, 140),
+              ),
             ),
-          );
-        },
-      )
+            const SizedBox(
+              height: 10,
+            ),
+            _buildPetList(context),
+          ],
+        ),
+      ),
     );
   }
 
@@ -80,56 +85,49 @@ class _HomePageState extends State<HomePage> {
 
           return ListView.builder(
             shrinkWrap: true,
-            itemCount: pets.length,
+            itemCount: pets.length + 1,
             itemBuilder: (_, index) {
-              final itemPet = pets[index];
-              return _buildListItem(itemPet, petDao);
+              final itemPet = index == 0 ? null : pets[index-1];
+              return index == 0
+                ? _buildAddPetItem()
+                : _buildListItem(itemPet!, petDao);
             },
           );
         }
     );
   }
 
-  Widget _buildListItem(Pet itemPet, PetsDao petDao) {
-    return Card(
-      child: ListTile(
-        title: Text(itemPet.nome),
-        subtitle: Text(itemPet.raca),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (context) => PerfilPet(dadosUsuario: widget.dadosUsuario!, dadosPet: itemPet,)
-                      )
-                  );
-                },
-                icon: const Icon(Icons.account_circle)
-            ),
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (context) => AlterarPetPage(dadosPet: itemPet,)
-                      )
-                  );
-                },
-                icon: const Icon(Icons.change_circle)
-            ),
-            IconButton(
-                onPressed: () async {
-                  final petDao = Provider.of<PetsDao>(context, listen: false);
-                  final resultado = await petDao.deletePet(itemPet);
+  Widget _buildAddPetItem() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => CadastroPetPage(idUsuario: widget.dadosUsuario!.id,)
+          ),
+        );
+      },
+      child: const Card(
+        child: ListTile(
+          leading: Icon(Icons.add, color: Color.fromARGB(255, 68, 132, 140),),
+          title: Text("Adicionar um pet", style: TextStyle(color: Color.fromARGB(255, 68, 132, 140),fontWeight: FontWeight.w400),),
+        ),
+      ),
+    );
+  }
 
-                  if(resultado.result == false && context.mounted) {
-                    showErrorMessage(context, "Falha ao deletar pet", resultado.message!);
-                  }
-                },
-                icon: const Icon(Icons.delete)
+  Widget _buildListItem(Pet itemPet, PetsDao petDao) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context) => PerfilPet(dadosUsuario: widget.dadosUsuario!, dadosPet: itemPet,)
             )
-          ],
+        );
+      },
+      child: Card(
+        child: ListTile(
+          leading: const Icon(Icons.pets, color: Color.fromARGB(255, 68, 132, 140),),
+          title: Text(itemPet.nome, style: const TextStyle(color: Color.fromARGB(255, 68, 132, 140),fontWeight: FontWeight.w400),),
         ),
       ),
     );
