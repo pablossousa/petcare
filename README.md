@@ -87,7 +87,7 @@ Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curt
     Cada pet teria uma carteira de identidade como no protótipo abaixo:
     <br><br>
     <p align="center">
-      <img src="img/identidadePet.png">
+      <img src="img/identidadePet.png" width="250px">
     </p>
     
   <li>Download da identidade do pet e da carteira de vacinação</li>
