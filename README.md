@@ -85,8 +85,9 @@ Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curt
     O usuário teria a opção de colocar uma foto de perfil para si e outras para seus pets podendo ser vistas em algumas telas como o menu principal, perfil do usuário e perfil do pet. 
   <li>Carteira de identidade para o pet</li>
     Cada pet teria uma carteira de identidade como no protótipo abaixo:
+    <br><br>
     <p align="center">
-      <img src="img/identidadePet">
+      <img src="img/identidadePet.png">
     </p>
     
   <li>Download da identidade do pet e da carteira de vacinação</li>
