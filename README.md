@@ -72,7 +72,7 @@ Foram utilizadas duas IDE's, o Visual Studio Code e o Android Studio. O Visual S
   
 </div>
 
-<h2>✏️ Prototipagem</h2>
+<h2>✏ Prototipagem</h2>
 
 A prototipagem foi criada no Figma como mencionado. E pode ser encontrada em [Prototipagem PetCare](https://www.figma.com/file/YonoXbSKjghswpb4J8TaaO/Pet-Care?type=design&node-id=0%3A1&mode=design&t=jSo65QcuTjvafGY1-1)
 
@@ -84,12 +84,22 @@ Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curt
   <li><b>Foto de perfl para o usuário e pet:</b> O usuário teria a opção de colocar uma foto de perfil para si e outras para seus pets podendo ser vistas em algumas telas como o menu principal, perfil do usuário e perfil do pet. </li>
   
   <li><b>Carteira de identidade para o pet:</b> Cada pet teria uma carteira de identidade como no protótipo abaixo:</li>
-    <br><br>
-    <p align="center">
+  
+  <br>
+
+  <p align="center">
       <img src="img/identidadePet.png" width="250px">
     </p>
     
-  <li>Download da identidade do pet e da carteira de vacinação</li>
+  <li>Download da identidade do pet e da carteira de vacinação: Nessas telas haveria a opção de baixar a identidade e a carteira de vacinação no celular para compartilhamento.</li>
+
+<br>
+
+<p align="center">
+      <img src="img/identidadePet2.png" width="250px">
+  <img src="img/cartaoVacina.png" width="250px">
+    </p>
+  
   <li>Seguir outros usuários</li>
   <li>Ver o perfil de outros usuáruios</li>
   <li>Implantar um banco de dados não local</li>
