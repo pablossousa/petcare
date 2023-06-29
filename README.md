@@ -104,7 +104,7 @@ Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curt
     </p>
   
   <li><b>Seguir outros usuários:</b> seria possível seguir outros usuários para que possam ver os pets de amigos;</li>
-  <li><b>Ver o perfil de outros usuáruios: </b> para ter conexão e networking, verificação de credibilidade, personalização e recomendações, aprendizado e inspiração e descoberta de conteúdo e interações sociais;</li>
+  <li><b>Ver o perfil de outros usuáruios: </b> para ter conexão e networking, verificação de credibilidade, personalização e recomendações, aprendizado e inspiração, descoberta de conteúdo e interações sociais;</li>
   <li><b>Implantar um banco de dados não local: </b> para que o usuário não perca os dados se houver algum problema no app ou se ele apagar o aplicativo sem querer. Além disso, poderá seguir outros usuários que não estão cadastrados no app;</li>
   <li><b>Recuperação de senha por e-mail</b>: caso o usuário esqueça sua senha seria possível redefinir a senha via e-mail.</li>
 </ul>
