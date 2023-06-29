@@ -84,9 +84,9 @@ A prototipagem foi criada no Figma como mencionado. E pode ser encontrada em [Pr
 Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curto prazo de implementação. Porém, podem ser possíveis adições ao sistema em futuras atualizações:
 
 <ul>
-  <li><b>Foto de perfl para o usuário e pet:</b> O usuário teria a opção de colocar uma foto de perfil para si e outras para seus pets podendo ser vistas em algumas telas como o menu principal, perfil do usuário e perfil do pet. </li>
+  <li><b>Foto de perfl para o usuário e pet:</b> o usuário teria a opção de colocar uma foto de perfil para si e outras para seus pets podendo ser vistas em algumas telas como o menu principal, perfil do usuário e perfil do pet. </li>
   
-  <li><b>Carteira de identidade para o pet:</b> Cada pet teria uma carteira de identidade como no protótipo abaixo:</li>
+  <li><b>Carteira de identidade para o pet:</b> cada pet teria uma carteira de identidade como no protótipo abaixo:</li>
   
   <br>
 
@@ -94,7 +94,7 @@ Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curt
       <img src="img/identidadePet.png" width="250px">
     </p>
     
-  <li><b>Download da identidade do pet e da carteira de vacinação:</b> Nessas telas haveria a opção de baixar a identidade e a carteira de vacinação no celular para compartilhamento.</li>
+  <li><b>Download da identidade do pet e da carteira de vacinação:</b> nessas telas haveria a opção de baixar a identidade e a carteira de vacinação no celular para compartilhamento.</li>
 
 <br>
 
@@ -103,10 +103,10 @@ Algumas funcionalidades do sistema não puderam ser desenvolvidas devido ao curt
   <img src="img/cartaoVacina.png" width="250px">
     </p>
   
-  <li><b>Seguir outros usuários:</b> Seria possível seguir outros usuários para que possam ver os pets de amigos</li>
-  <li><b>Ver o perfil de outros usuáruios: </b> Para ter conexão e networking, verificação de credibilidade, personalização e recomendações, aprendizado e inspiração e descoberta de conteúdo e interações sociais.</li>
-  <li><b>Implantar um banco de dados não local: </b> Para que o usuário não perca os dados se houver algum problema no app ou se ele apagar o aplicativo sem querer. Além disso, poderá seguir outros usuários que não estão cadastrados no app.</li>
-  <li><b>Recuperação de senha por e-mail</b>: Caso o usuário esqueça sua senha seria possível redefinir a senha via e-mail.</li>
+  <li><b>Seguir outros usuários:</b> seria possível seguir outros usuários para que possam ver os pets de amigos</li>
+  <li><b>Ver o perfil de outros usuáruios: </b> para ter conexão e networking, verificação de credibilidade, personalização e recomendações, aprendizado e inspiração e descoberta de conteúdo e interações sociais.</li>
+  <li><b>Implantar um banco de dados não local: </b> para que o usuário não perca os dados se houver algum problema no app ou se ele apagar o aplicativo sem querer. Além disso, poderá seguir outros usuários que não estão cadastrados no app.</li>
+  <li><b>Recuperação de senha por e-mail</b>: caso o usuário esqueça sua senha seria possível redefinir a senha via e-mail.</li>
 </ul>
 
 <h2>📢 Tutorial</h2>
