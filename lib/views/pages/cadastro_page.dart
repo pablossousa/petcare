@@ -542,8 +542,8 @@ class _CadastroPageState extends State<CadastroPage> {
                         child: const Text(
                           "Fazer login",
                           style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 16
+                              color: Color.fromARGB(255, 68, 132, 140),
+                              fontSize: 16,
                           ),
                         ),
                         onPressed: () => {Navigator.pushReplacement(context, MaterialPageRoute(
